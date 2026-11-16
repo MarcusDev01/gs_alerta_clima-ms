@@ -1,0 +1,57 @@
+### Alerta Clima API - testes (VS Code "REST Client" ou IntelliJ HTTP Client)
+### Troque a URL pela do Azure para testar em produção
+@base = http://localhost:8080/api/v1
+
+### 1) Criar cidade (201)
+POST {{base}}/cidades
+Content-Type: application/json
+
+{ "nome": "Petrópolis", "estado": "RJ", "latitude": -22.505, "longitude": -43.178, "populacao": 278881, "areaDeRisco": true }
+
+### 2) Criar usuário (201)
+POST {{base}}/usuarios
+Content-Type: application/json
+
+{ "nome": "Maria Oliveira", "email": "maria@email.com", "telefone": "21987654321", "receberSms": true }
+
+### 3) Usuário passa a monitorar a cidade (201)
+POST {{base}}/monitoramentos
+Content-Type: application/json
+
+{ "usuarioId": 1, "cidadeId": 1, "apelido": "Casa da minha mãe", "favorita": true, "notificacoesAtivas": true }
+
+### 4) Emitir alerta para a cidade (201)
+POST {{base}}/alertas
+Content-Type: application/json
+
+{
+  "cidadeId": 1, "tipo": "CHUVA_FORTE", "nivel": "GRANDE_PERIGO",
+  "titulo": "Chuva forte com risco de deslizamento",
+  "descricao": "Acumulado acima de 80 mm em 24h.",
+  "recomendacao": "Em área de encosta, observe rachaduras e saia de casa se o terreno ceder. Defesa Civil: 199.",
+  "dataInicio": "2026-11-20T12:00:00", "dataFim": "2026-11-21T06:00:00"
+}
+
+### 5) Listar (200)
+GET {{base}}/alertas
+
+### 6) Consultar por id (200)
+GET {{base}}/alertas/1
+
+### 7) Atualizar (200)
+PUT {{base}}/alertas/1
+Content-Type: application/json
+
+{ "cidadeId": 1, "tipo": "CHUVA_FORTE", "nivel": "PERIGO", "titulo": "Chuva forte (nível reduzido)", "dataInicio": "2026-11-20T12:00:00" }
+
+### 8) Dados inválidos (400)
+POST {{base}}/usuarios
+Content-Type: application/json
+
+{ "nome": "", "email": "nao-e-email", "telefone": "abc" }
+
+### 9) Recurso inexistente (404)
+GET {{base}}/cidades/9999
+
+### 10) Excluir (204)
+DELETE {{base}}/alertas/1

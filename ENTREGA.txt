@@ -1,0 +1,10 @@
+GLOBAL SOLUTION - 3SIR
+ALERTA CLIMA API
+
+INTEGRANTES
+Nome: Marcus Vinicius Martinho Lucas | RM: 554616
+Nome: Henry Titotto | RM: 555421
+
+GITHUB: https://github.com/<usuario>/alerta-clima-api
+API AZURE: https://<nome-do-app>.azurewebsites.net
+DOCKER HUB: https://hub.docker.com/r/<usuario-dockerhub>/alerta-clima-api
